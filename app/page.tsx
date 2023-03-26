@@ -17,7 +17,7 @@ type FormData = {
 
 const ReadmeForm = () => {
   const [readmeData, setReadmeData] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const { register, handleSubmit } = useForm<FormData>();
 
   const onSubmit = async (data: FormData) => {
