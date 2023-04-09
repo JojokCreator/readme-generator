@@ -108,7 +108,7 @@ const ReadmeForm = () => {
               id="github-url"
               type="text"
               className="mb-2 form-input p-2 w-full rounded-md border-gray-300 shadow-sm bg-stone-800 text-amber-100"
-              placeholder="Git Hub Url"
+              placeholder="Git Hub Url e.g https://github.com/{username}/{repo_name}"
               {...registerGit("url", { required: true })}
             />
             <button
