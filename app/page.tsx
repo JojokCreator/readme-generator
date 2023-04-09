@@ -18,10 +18,47 @@ type FormData = {
   badges: boolean;
 };
 
+type GitData = {
+  url: string;
+};
+
 const ReadmeForm = () => {
   const [readmeData, setReadmeData] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { register, handleSubmit } = useForm<FormData>();
+  const { register, handleSubmit, setValue } = useForm<FormData>();
+  const { register: registerGit, handleSubmit: handleGitSubmit } =
+    useForm<GitData>();
+
+  const onSubmitGit = (data: GitData) => {
+    async function fetchPackageJson() {
+      const repoName = data.url.split("/").slice(-2).join("/");
+      try {
+        const response = await fetch(
+          `https://api.github.com/repos/${repoName}/contents/package.json`,
+          {
+            method: "Get",
+            headers: {
+              Accept: "application/vnd.github+json",
+            },
+          }
+        );
+        const data = await response.json();
+        const parsedData = JSON.parse(
+          Buffer.from(data.content, "base64").toString("utf-8")
+        );
+        console.log(
+          JSON.parse(Buffer.from(data.content, "base64").toString("utf-8"))
+        );
+        setValue("projectName", JSON.stringify(parsedData.name));
+        setValue("npmpackages", JSON.stringify(parsedData.dependencies));
+        setValue("contributors", JSON.stringify(repoName.split("/")[0]));
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchPackageJson();
+  };
 
   const onSubmit = async (data: FormData) => {
     setIsLoading(true);
@@ -66,6 +103,22 @@ const ReadmeForm = () => {
       </header>
       <div className="p-4 grid grid-cols md:grid-cols-2">
         <div className="col-span-1 mb-4">
+          <div className="max-w-lg mx-auto bg-stone-600 p-4 shadow-md rounded-md">
+            <input
+              id="github-url"
+              type="text"
+              className="mb-2 form-input p-2 w-full rounded-md border-gray-300 shadow-sm bg-stone-800 text-amber-100"
+              placeholder="Git Hub Url"
+              {...registerGit("url", { required: true })}
+            />
+            <button
+              type="submit"
+              className="bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-4 rounded-md shadow-sm"
+              onClick={handleGitSubmit(onSubmitGit)}
+            >
+              Fill Fields
+            </button>
+          </div>
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="max-w-lg mx-auto bg-stone-600 p-4 shadow-md rounded-md"

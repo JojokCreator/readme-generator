@@ -12,10 +12,12 @@ const openai = new OpenAIApi(configuration);
 export async function POST(request: Request) {
   const req = await request.json();
 
-  const prompt = `make me a readme file with the title ${req.projectName}, long description based on ${req.description} and explain why i used 
-    these npm packages ${req.npmpackages} when listing the packages in a list don't include any types and give a brief explaination of what they do.
-    include how to install the project using ${req.installation} command. How to run it using the ${req.usage} command. Also include 
-    the ${req.contributors} and the ${req.license} unless it is none don't include it`;
+  const prompt = `make me a readme file with the title ${req.projectName}, long description based on ${req.description}
+  that includes description, what the project can be used for and possible additions in the future 
+  and explain why i used these npm packages ${req.npmpackages} when listing the packages in a list don't include any 
+  @types or any version numbers or eslint and give a brief explaination of what they do. include how to install the project 
+  using ${req.installation} command. How to run it using the ${req.usage} command. Also include 
+  the ${req.contributors} as a list and the ${req.license} unless it is none don't include it`;
 
   const completion = await openai.createCompletion({
     model: "text-davinci-003",
