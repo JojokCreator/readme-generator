@@ -6,6 +6,10 @@ import { LoadingPage } from "./components/loading";
 import { Toaster } from "react-hot-toast";
 import toast from "react-hot-toast";
 import copy from "copy-to-clipboard";
+import { signIn, signOut } from "next-auth/react";
+import { GitHubIcon } from "@/components/GitHubIcon";
+import { useSession } from "next-auth/react";
+import { Session } from "next-auth";
 
 type FormData = {
   projectName: string;
@@ -23,6 +27,7 @@ type GitData = {
 };
 
 const ReadmeForm = () => {
+  const session = useSession().data as Session & { access_token?: string };
   const [readmeData, setReadmeData] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { register, handleSubmit, setValue } = useForm<FormData>();
@@ -32,13 +37,19 @@ const ReadmeForm = () => {
   const onSubmitGit = (data: GitData) => {
     async function fetchPackageJson() {
       const repoName = data.url.split("/").slice(-2).join("/");
+      let auth = "";
       try {
+        if (session != null) {
+          auth = `Bearer ${session.access_token}`;
+        }
+        console.log(auth);
         const response = await fetch(
           `https://api.github.com/repos/${repoName}/contents/package.json`,
           {
             method: "Get",
             headers: {
-              Accept: "application/vnd.github+json",
+              Accept: "application/vnd.github.v3+json",
+              Authorization: auth,
             },
           }
         );
@@ -100,6 +111,22 @@ const ReadmeForm = () => {
           <b className="text-4xl">Readme Gen 📖</b> create a simple markdown
           Readme file for your project
         </span>
+        {session === null ? (
+          <button
+            className="mb-4 flex items-center rounded-md border border-gray-800 bg-black px-4 py-3 text-sm font-semibold text-neutral-200 transition-all hover:text-white"
+            onClick={() => signIn("github")}
+          >
+            <GitHubIcon />
+            <div className="ml-3">Sign in with GitHub</div>
+          </button>
+        ) : (
+          <button
+            className="mt-2 mb-6 text-sm text-white hover:text-[hsl(280,100%,70%)]"
+            onClick={() => signOut()}
+          >
+            → Sign out
+          </button>
+        )}
       </header>
       <div className="p-4 grid grid-cols md:grid-cols-2">
         <div className="col-span-1 mb-4">
