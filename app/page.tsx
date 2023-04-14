@@ -42,7 +42,6 @@ const ReadmeForm = () => {
         if (session != null) {
           auth = `Bearer ${session.access_token}`;
         }
-        console.log(auth);
         const response = await fetch(
           `https://api.github.com/repos/${repoName}/contents/package.json`,
           {
@@ -57,9 +56,9 @@ const ReadmeForm = () => {
         const parsedData = JSON.parse(
           Buffer.from(data.content, "base64").toString("utf-8")
         );
-        console.log(
-          JSON.parse(Buffer.from(data.content, "base64").toString("utf-8"))
-        );
+        // console.log(
+        //   JSON.parse(Buffer.from(data.content, "base64").toString("utf-8"))
+        // );
         setValue("projectName", JSON.stringify(parsedData.name));
         setValue("npmpackages", JSON.stringify(parsedData.dependencies));
         setValue("contributors", JSON.stringify(repoName.split("/")[0]));
