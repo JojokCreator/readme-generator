@@ -6,7 +6,6 @@ type CustomAuthOptions = NextAuthOptions & {
 };
 
 export const authOptions: CustomAuthOptions = {
-  console.log(process.env.NEXTAUTH_URL)
   site: "http://read-gen.vercel.app",
   providers: [
     GithubProvider({
@@ -42,5 +41,6 @@ export const authOptions: CustomAuthOptions = {
     },
   },
 };
+console.log(process.env.NEXTAUTH_URL);
 const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
