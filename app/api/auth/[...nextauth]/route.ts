@@ -1,7 +1,11 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 
-export const authOptions: NextAuthOptions = {
+type CustomAuthOptions = NextAuthOptions & {
+  site: string | undefined;
+};
+
+export const authOptions: CustomAuthOptions = {
   site: process.env.NEXTAUTH_URL,
   providers: [
     GithubProvider({
