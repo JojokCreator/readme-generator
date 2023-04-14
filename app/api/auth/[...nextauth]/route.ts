@@ -1,12 +1,7 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 
-type CustomAuthOptions = NextAuthOptions & {
-  site: string | undefined;
-};
-
-export const authOptions: CustomAuthOptions = {
-  site: "http://read-gen.vercel.app",
+export const authOptions: NextAuthOptions = {
   providers: [
     GithubProvider({
       clientId: process.env.GITHUB_ID as string,
@@ -39,8 +34,13 @@ export const authOptions: CustomAuthOptions = {
       }
       return session;
     },
+    async redirect({ url, baseUrl }) {
+      const productionDomain = "https://read-gen.vercel.app";
+      const redirectUrl = url.replace(baseUrl, productionDomain);
+
+      return redirectUrl;
+    },
   },
 };
-console.log(process.env.NEXTAUTH_URL);
 const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
