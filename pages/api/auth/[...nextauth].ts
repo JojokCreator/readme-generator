@@ -33,12 +33,6 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
-    // async redirect({ url, baseUrl }) {
-    //   const productionDomain = "https://read-gen.vercel.app";
-    //   const redirectUrl = url.replace(baseUrl, productionDomain);
-
-    //   return redirectUrl;
-    // },
   },
 };
 export default NextAuth(authOptions);
