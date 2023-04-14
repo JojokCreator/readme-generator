@@ -27,6 +27,7 @@ type GitData = {
 };
 
 const ReadmeForm = () => {
+  console.log(process.env.NEXTAUTH_URL);
   const session = useSession().data as Session & { access_token?: string };
   const [readmeData, setReadmeData] = useState("");
   const [isLoading, setIsLoading] = useState(false);
