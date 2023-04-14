@@ -30,17 +30,15 @@ export const authOptions: NextAuthOptions = {
         session = Object.assign({}, session, {
           access_token: token.access_token,
         });
-        console.log(session);
       }
       return session;
     },
-    async redirect({ url, baseUrl }) {
-      const productionDomain = "https://read-gen.vercel.app";
-      const redirectUrl = url.replace(baseUrl, productionDomain);
+    // async redirect({ url, baseUrl }) {
+    //   const productionDomain = "https://read-gen.vercel.app";
+    //   const redirectUrl = url.replace(baseUrl, productionDomain);
 
-      return redirectUrl;
-    },
+    //   return redirectUrl;
+    // },
   },
 };
-const handler = NextAuth(authOptions);
-export { handler as GET, handler as POST };
+export default NextAuth(authOptions);
