@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import ReactMarkdown from "react-markdown";
 import { LoadingPage } from "./components/loading";
@@ -35,6 +35,7 @@ const ReadmeForm = () => {
   const { register, handleSubmit, setValue } = useForm<FormData>();
   const { register: registerGit, handleSubmit: handleGitSubmit } =
     useForm<GitData>();
+  const [scrollPosition, setScrollPosition] = useState(0);
 
   const onSubmitGit = (data: GitData) => {
     async function fetchPackageJson() {
@@ -175,6 +176,19 @@ const ReadmeForm = () => {
 
     createFile();
   };
+
+  useEffect(() => {
+    function handleScroll() {
+      setScrollPosition(window.scrollY);
+      console.log(window.scrollY);
+    }
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <>
@@ -369,12 +383,13 @@ const ReadmeForm = () => {
                 <ReactMarkdown>{readmeData}</ReactMarkdown>
               </div>
               <div
-                className="
-             text-xl text-white fixed right-2 bottom-10 p-4 hover:cursor-pointer hover:opacity-50"
+                className={`${
+                  scrollPosition < 1200 ? "text-white" : "text-black"
+                } text-xl fixed right-2 bottom-10 p-4 hover:cursor-pointer hover:opacity-50`}
               >
                 <div
                   onClick={() => onClick(readmeData)}
-                  className="flex flex-col items-center border-white border rounded-full p-4"
+                  className="flex flex-col items-center border-white border rounded-full p-3"
                 >
                   Copy
                   <svg
@@ -393,31 +408,34 @@ const ReadmeForm = () => {
                   </svg>
                 </div>
               </div>
-              <div
-                className="
-             text-xl text-white fixed right-20 bottom-10 p-4 hover:cursor-pointer hover:opacity-50"
-              >
+              {session != null ? (
                 <div
-                  onClick={() => onCommit(readmeData)}
-                  className="flex flex-col items-center border-white border rounded-full p-4"
+                  className={`${
+                    scrollPosition < 1200 ? "text-white" : "text-black"
+                  } text-xl fixed right-2 bottom-10 p-4 hover:cursor-pointer hover:opacity-50`}
                 >
-                  Commit
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    className="w-6 h-6"
+                  <div
+                    onClick={() => onCommit(readmeData)}
+                    className="flex flex-col items-center border-white border rounded-full p-3"
                   >
-                    <path
+                    Send
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#f3f3f3"
+                      stroke-width="2"
                       stroke-linecap="round"
                       stroke-linejoin="round"
-                      d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184"
-                    />
-                  </svg>
+                    >
+                      <polyline points="9 11 12 14 22 4"></polyline>
+                      <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                    </svg>
+                  </div>
                 </div>
-              </div>
+              ) : null}
             </div>
           </>
         )}
