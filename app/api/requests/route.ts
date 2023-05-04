@@ -3,9 +3,9 @@
 import { NextResponse } from "next/server";
 import { Configuration, OpenAIApi } from "openai";
 
-export const config = {
-  runtime: "edge",
-};
+// export const config = {
+//   runtime: "edge", // this is a pre-requisite
+// };
 
 const configuration = new Configuration({
   apiKey: process.env.OPEN_API_KEY,
@@ -30,16 +30,18 @@ export async function POST(request: Request) {
 - Contributors: Please list the contributors as a bullet-pointed list.
 - License: Please include the license, unless it is none.
 
-Please also add the following badges to the README:
-- Build status: [![Build Status](https://img.shields.io/travis/${url}.svg)](https://travis-ci.org/${url})
-- Code coverage: [![Coverage Status](https://img.shields.io/codecov/c/github/${url}.svg)](https://codecov.io/gh/${url})
-- Version: [![GitHub release](https://img.shields.io/github/release/${url}.svg)](https://github.com/${url}/releases)
-- License: [![License](https://img.shields.io/badge/license-{license}-brightgreen.svg)]({link to license})
-- Downloads: [![Downloads](https://img.shields.io/npm/dt/{npm package name}.svg)](https://www.npmjs.com/package/{npm package name})
-- Last commit: [![GitHub last commit](https://img.shields.io/github/last-commit/${url}.svg)](https://github.com/${url}/commits/master)
-- Issues: [![GitHub issues](https://img.shields.io/github/issues/${url}.svg)](https://github.com/${url}/issues)
-- Pull requests: [![GitHub pull requests](https://img.shields.io/github/issues-pr/${url}.svg)](https://github.com/${url}/pulls)
-- Dependencies: [![Dependencies](https://img.shields.io/david/${url}.svg)](https://david-dm.org/${url})`;
+// Please also add the following badges to the README:
+// - Build status: [![Build Status](https://img.shields.io/travis/${url}.svg)](https://travis-ci.org/${url})
+// - Code coverage: [![Coverage Status](https://img.shields.io/codecov/c/github/${url}.svg)](https://codecov.io/gh/${url})
+// - Version: [![GitHub release](https://img.shields.io/github/release/${url}.svg)](https://github.com/${url}/releases)
+// - License: [![License](https://img.shields.io/badge/license-{license}-brightgreen.svg)]({link to license})
+// - Downloads: [![Downloads](https://img.shields.io/npm/dt/{npm package name}.svg)](https://www.npmjs.com/package/{npm package name})
+// - Last commit: [![GitHub last commit](https://img.shields.io/github/last-commit/${url}.svg)](https://github.com/${url}/commits/master)
+// - Issues: [![GitHub issues](https://img.shields.io/github/issues/${url}.svg)](https://github.com/${url}/issues)
+// - Pull requests: [![GitHub pull requests](https://img.shields.io/github/issues-pr/${url}.svg)](https://github.com/${url}/pulls)
+// - Dependencies: [![Dependencies](https://img.shields.io/david/${url}.svg)](https://david-dm.org/${url})
+
+`;
 
   const completion = await openai.createCompletion({
     model: "text-davinci-003",
