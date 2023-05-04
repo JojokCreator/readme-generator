@@ -181,7 +181,6 @@ const ReadmeForm = () => {
   useEffect(() => {
     function handleScroll() {
       setScrollPosition(window.scrollY);
-      console.log(window.scrollY);
     }
 
     window.addEventListener("scroll", handleScroll);
