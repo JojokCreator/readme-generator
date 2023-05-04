@@ -20,6 +20,7 @@ type FormData = {
   contributors: string;
   license: string;
   badges: boolean;
+  URL: string;
 };
 
 type GitData = {
@@ -75,7 +76,7 @@ const ReadmeForm = () => {
         const projectName = JSON.stringify(name);
         const npmpackages = JSON.stringify(dependencies);
         const contributors = JSON.stringify(contributor);
-
+        setValue("URL", data.url);
         setValue("projectName", projectName);
         setValue("npmpackages", npmpackages);
         setValue("contributors", contributors);
@@ -245,6 +246,20 @@ const ReadmeForm = () => {
             onSubmit={handleSubmit(onSubmit)}
             className="max-w-lg mx-auto bg-stone-600 p-4 shadow-md rounded-md"
           >
+            <div className="mb-4">
+              <label
+                htmlFor="project-name"
+                className="block font-medium mb-2 text-amber-300"
+              >
+                URL
+              </label>
+              <input
+                id="url"
+                type="text"
+                className="form-input p-2 w-full rounded-md border-gray-300 shadow-sm bg-stone-800 text-amber-100"
+                {...register("URL", { required: true })}
+              />
+            </div>
             <div className="mb-4">
               <label
                 htmlFor="project-name"
