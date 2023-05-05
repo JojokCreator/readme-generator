@@ -399,7 +399,7 @@ const ReadmeForm = () => {
               <div
                 className={`${
                   scrollPosition < 1200 ? "text-white" : "text-black"
-                } text-xl fixed right-2 bottom-10 p-4 hover:cursor-pointer hover:opacity-50`}
+                } text-xl fixed right-1 bottom-10 p-4 hover:cursor-pointer hover:opacity-50`}
               >
                 <div
                   onClick={() => onClick(readmeData)}
@@ -422,11 +422,11 @@ const ReadmeForm = () => {
                   </svg>
                 </div>
               </div>
-              {session != null ? (
+              {session === null ? (
                 <div
                   className={`${
                     scrollPosition < 1200 ? "text-white" : "text-black"
-                  } text-xl fixed right-2 bottom-10 p-4 hover:cursor-pointer hover:opacity-50`}
+                  } text-xl fixed right-20 bottom-10 p-4 hover:cursor-pointer hover:opacity-50`}
                 >
                   <div
                     onClick={() => onCommit(readmeData)}
@@ -439,7 +439,7 @@ const ReadmeForm = () => {
                       height="24"
                       viewBox="0 0 24 24"
                       fill="none"
-                      stroke="#f3f3f3"
+                      stroke="currentColor"
                       stroke-width="2"
                       stroke-linecap="round"
                       stroke-linejoin="round"
