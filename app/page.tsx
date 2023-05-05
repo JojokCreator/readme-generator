@@ -93,7 +93,7 @@ const ReadmeForm = () => {
     // e.preventDefault();
 
     // Send chat history to API
-    const response = await fetch("/api/requests", {
+    const response = await fetch("/api/edge", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
