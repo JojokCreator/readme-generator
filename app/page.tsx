@@ -422,7 +422,7 @@ const ReadmeForm = () => {
                   </svg>
                 </div>
               </div>
-              {session === null ? (
+              {session != null ? (
                 <div
                   className={`${
                     scrollPosition < 1200 ? "text-white" : "text-black"
