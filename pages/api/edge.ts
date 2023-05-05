@@ -42,14 +42,24 @@ Please also add the following badges to the README:
 - Pull requests: [![GitHub pull requests](https://img.shields.io/github/issues-pr/${url}.svg)](https://github.com/${url}/pulls)
 - Dependencies: [![Dependencies](https://img.shields.io/david/${url}.svg)](https://david-dm.org/${url})`;
 
-  const completion = await openai.createCompletion({
-    model: "text-davinci-003",
-    prompt: prompt,
-    max_tokens: 2048,
-    temperature: 0.7,
-    top_p: 1,
-    frequency_penalty: 0.0,
-    presence_penalty: 0.0,
+  const response = await fetch("https://api.openai.com/v1/completions", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.OPEN_API_KEY}`,
+    },
+    body: JSON.stringify({
+      prompt: prompt,
+      max_tokens: 2048,
+      temperature: 0.7,
+      top_p: 1,
+      frequency_penalty: 0.0,
+      presence_penalty: 0.0,
+      model: "text-davinci-003",
+    }),
   });
-  return NextResponse.json(completion.data.choices[0].text?.trim());
+
+  const data = await response.json();
+  console.log(data);
+  return NextResponse.json(data.choices[0].text?.trim());
 };
