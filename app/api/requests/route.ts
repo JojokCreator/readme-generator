@@ -3,15 +3,15 @@
 import { NextResponse } from "next/server";
 import { Configuration, OpenAIApi } from "openai";
 
-// export const config = {
-//   runtime: "edge", // this is a pre-requisite
-// };
+export const config = {
+  runtime: "edge", // this is a pre-requisite
+};
 
-const configuration = new Configuration({
-  apiKey: process.env.OPEN_API_KEY,
-});
+// const configuration = new Configuration({
+//   apiKey: process.env.OPEN_API_KEY,
+// });
 
-const openai = new OpenAIApi(configuration);
+// const openai = new OpenAIApi(configuration);
 
 export async function POST(request: Request) {
   const req = await request.json();
@@ -42,15 +42,26 @@ export async function POST(request: Request) {
 // - Dependencies: [![Dependencies](https://img.shields.io/david/${url}.svg)](https://david-dm.org/${url})
 
 `;
+  console.log(process.env.OPEN_API_KEY);
 
-  const completion = await openai.createCompletion({
-    model: "text-davinci-003",
-    prompt: prompt,
-    max_tokens: 2048,
-    temperature: 0.7,
-    top_p: 1,
-    frequency_penalty: 0.0,
-    presence_penalty: 0.0,
+  const response = await fetch("https://api.openai.com/v1/completions", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.OPEN_API_KEY}`,
+    },
+    body: JSON.stringify({
+      prompt: prompt,
+      max_tokens: 2048,
+      temperature: 0.7,
+      top_p: 1,
+      frequency_penalty: 0.0,
+      presence_penalty: 0.0,
+      model: "text-davinci-003",
+    }),
   });
-  return NextResponse.json(completion.data.choices[0].text?.trim());
+
+  const data = await response.json();
+  console.log(data);
+  return NextResponse.json(data.choices[0].text?.trim());
 }
