@@ -365,6 +365,25 @@ const ReadmeForm = () => {
                 <option value="None">None</option>
               </select>
             </div>
+            <div className="mb-4">
+              <label
+                htmlFor="badges"
+                className="block font-medium mb-2 text-amber-300"
+              >
+                Badges
+              </label>
+              <label className="inline-flex items-center">
+                <input
+                  id="badges"
+                  type="checkbox"
+                  className="form-checkbox"
+                  {...register("badges")}
+                />
+                <span className="ml-2 text-amber-300">
+                  Include badges/shields in README
+                </span>
+              </label>
+            </div>
             <div className="flex justify-center">
               <button
                 type="submit"
