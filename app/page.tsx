@@ -89,6 +89,7 @@ const ReadmeForm = () => {
   };
 
   const onSubmit = async (data: FormData) => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
     setIsLoading(true);
     // e.preventDefault();
 
