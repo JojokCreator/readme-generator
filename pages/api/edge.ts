@@ -14,21 +14,18 @@ export const config = {
 // eslint-disable-next-line import/no-anonymous-default-export
 export default async (request: NextRequest) => {
   const req = await request.json();
-
-  const url = req.URL.split("/").slice(-2).join("/");
-
   let badges = "";
   if (req.badges === true) {
     badges = `
-    Version: [![GitHub release](https://img.shields.io/github/package-json/v/${url}.svg)](https://github.com/${url})
-    Last commit: [![GitHub last commit](https://img.shields.io/github/last-commit/${url}.svg)](https://github.com/${url}/commits/master)
-    Issues: [![GitHub issues](https://img.shields.io/github/issues/${url}.svg)](https://github.com/${url}/issues)
-    Pull requests: [![GitHub pull requests](https://img.shields.io/github/issues-pr/${url}.svg)](https://github.com/${url}/pulls)
-    Dependencies: [![Dependencies](https://img.shields.io/librariesio/github/${url}.svg)](https://github.com/${url}/Dependencies  )`;
+    Version: [![GitHub release](https://img.shields.io/github/package-json/v/${req.URL}.svg)](https://github.com/${req.URL})
+    Last commit: [![GitHub last commit](https://img.shields.io/github/last-commit/${req.URL}.svg)](https://github.com/${req.URL}/commits/master)
+    Issues: [![GitHub issues](https://img.shields.io/github/issues/${req.URL}.svg)](https://github.com/${req.URL}/issues)
+    Pull requests: [![GitHub pull requests](https://img.shields.io/github/issues-pr/${req.URL}.svg)](https://github.com/${req.URL}/pulls)
+    Dependencies: [![Dependencies](https://img.shields.io/librariesio/github/${req.URL}.svg)](https://github.com/${req.URL}/Dependencies  )`;
   }
 
   const prompt = `
-  Please create a comprehensive README file for the project with the following details:
+  Please create a comprehensive README file for the project styled in markdown with the following details:
   Title: ${req.projectName}
   Description: ${req.description}
   What the project can be used for

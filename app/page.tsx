@@ -76,7 +76,7 @@ const ReadmeForm = () => {
         const projectName = JSON.stringify(name);
         const npmpackages = JSON.stringify(dependencies);
         const contributors = JSON.stringify(contributor);
-        setValue("URL", data.url);
+        setValue("URL", data.url.split("/repos/")[1]?.split("/contents")[0]);
         setValue("projectName", projectName);
         setValue("npmpackages", npmpackages);
         setValue("contributors", contributors);
@@ -257,6 +257,7 @@ const ReadmeForm = () => {
                 id="url"
                 type="text"
                 className="form-input p-2 w-full rounded-md border-gray-300 shadow-sm bg-stone-800 text-amber-100"
+                placeholder="UserName/Repo e.g username/repo_name"
                 {...register("URL", { required: true })}
               />
             </div>
