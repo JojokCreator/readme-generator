@@ -17,11 +17,11 @@ export default async (request: NextRequest) => {
   let badges = "";
   if (req.badges === true) {
     badges = `
-    Version: [![GitHub release](https://img.shields.io/github/package-json/v/${req.URL}.svg)](https://github.com/${req.URL})
-    Last commit: [![GitHub last commit](https://img.shields.io/github/last-commit/${req.URL}.svg)](https://github.com/${req.URL}/commits/master)
-    Issues: [![GitHub issues](https://img.shields.io/github/issues/${req.URL}.svg)](https://github.com/${req.URL}/issues)
-    Pull requests: [![GitHub pull requests](https://img.shields.io/github/issues-pr/${req.URL}.svg)](https://github.com/${req.URL}/pulls)
-    Dependencies: [![Dependencies](https://img.shields.io/librariesio/github/${req.URL}.svg)](https://github.com/${req.URL}/Dependencies  )`;
+    [![GitHub release](https://img.shields.io/github/package-json/v/${req.URL}.svg)](https://github.com/${req.URL})
+    [![GitHub last commit](https://img.shields.io/github/last-commit/${req.URL}.svg)](https://github.com/${req.URL}/commits/master)
+    [![GitHub issues](https://img.shields.io/github/issues/${req.URL}.svg)](https://github.com/${req.URL}/issues)
+    [![GitHub pull requests](https://img.shields.io/github/issues-pr/${req.URL}.svg)](https://github.com/${req.URL}/pulls)
+    [![Dependencies](https://img.shields.io/librariesio/github/${req.URL}.svg)](https://github.com/${req.URL}/Dependencies  )`;
   }
 
   const prompt = `

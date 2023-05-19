@@ -382,7 +382,7 @@ const ReadmeForm = () => {
                   {...register("badges")}
                 />
                 <span className="ml-2 text-amber-300">
-                  Include badges/shields in README
+                  Include badges/shields in README (Wont work if private)
                 </span>
               </label>
             </div>
